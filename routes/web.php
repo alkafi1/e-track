@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Common\ProfileController as CommonProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,9 @@ Route::middleware(['auth', 'user'])->group(function () {
 // Admin routes protected by 'admin' middleware
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+});
+
+// common route admin or user
+Route::middleware(['auth'])->group(function () {
+    Route::resource('profile', CommonProfileController::class);
 });
